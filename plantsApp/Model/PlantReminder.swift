@@ -56,6 +56,18 @@ enum WateringDays: String, CaseIterable, Identifiable {
     case every2Weeks = "Every 2 weeks"
 
     var id: Self { self }
+
+    // How many days between waterings — used to schedule the notification
+    var days: Int {
+        switch self {
+        case .everyDay:    1
+        case .every2Days:  2
+        case .every3Days:  3
+        case .onceAWeek:   7
+        case .every10Days: 10
+        case .every2Weeks: 14
+        }
+    }
 }
  
 enum WaterAmount: String, CaseIterable, Identifiable {

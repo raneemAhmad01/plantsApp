@@ -72,6 +72,7 @@ final class PlantsViewModel: ObservableObject {
             water: water
         )
         reminders.append(reminder)
+        scheduleNotification(for: reminder)
     }
 
     // MARK: Update — an existing plant (tapping a row)
@@ -85,11 +86,15 @@ final class PlantsViewModel: ObservableObject {
         reminders[index].light = light
         reminders[index].wateringDays = wateringDays
         reminders[index].water = water
+
+        // Same id → replaces the old notification with the new schedule
+        scheduleNotification(for: reminders[index])
     }
 
     // MARK: Delete
     func delete(_ reminder: PlantReminder) {
         reminders.removeAll { $0.id == reminder.id }
+        NotificationManager.shared.cancel(for: reminder)
     }
 
     // MARK: Form rules
@@ -101,6 +106,17 @@ final class PlantsViewModel: ObservableObject {
     // "  Pothos " → "Pothos"
     private func cleaned(_ name: String) -> String {
         name.trimmingCharacters(in: .whitespaces)
+    }
+
+    // MARK: Notifications
+    // Asks permission first (iOS only shows the alert once), then schedules
+    private func scheduleNotification(for reminder: PlantReminder) {
+        Task {
+            let allowed = await NotificationManager.shared.requestPermission()
+            if allowed {
+                NotificationManager.shared.schedule(for: reminder)
+            }
+        }
     }
 }
     

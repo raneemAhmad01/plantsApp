@@ -12,7 +12,8 @@ import UserNotifications
 
 final class NotificationManager {
 
-    // One shared instance for the whole app
+    // Singleton: one shared instance for the whole app
+    
     static let shared = NotificationManager()
     private init() {}
 

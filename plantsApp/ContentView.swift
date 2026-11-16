@@ -19,6 +19,7 @@ struct ContentView: View {
     @State private var editingReminder: PlantReminder?
 
     var body: some View {
+        //invisible container
         Group {
             if !hasSeenOnboarding {
                 firstTimeWelcome {

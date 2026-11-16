@@ -9,7 +9,8 @@
 //
 
 import Foundation
-import Combine   // ObservableObject and @Published come from Combine
+import Combine
+
 
 final class PlantsViewModel: ObservableObject {
 
@@ -61,7 +62,7 @@ final class PlantsViewModel: ObservableObject {
         }
     }
 
-    // MARK: Save — a brand-new plant (the + button)
+    // MARK: Save — a brand-new plant
     func save(name: String, room: Room, light: Light,
               wateringDays: WateringDays, water: WaterAmount) {
         let reminder = PlantReminder(
@@ -75,7 +76,7 @@ final class PlantsViewModel: ObservableObject {
         scheduleNotification(for: reminder)
     }
 
-    // MARK: Update — an existing plant (tapping a row)
+    // MARK: Update — an existing plant
     // Changes only the fields, so the plant keeps its id and isWatered
     func update(_ reminder: PlantReminder, name: String, room: Room, light: Light,
                 wateringDays: WateringDays, water: WaterAmount) {

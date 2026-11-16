@@ -3,41 +3,41 @@
 //  Plants App 🌱
 //
 //  MODEL — the data: what one plant reminder IS.
-//  No SwiftUI here, only plain Swift.
 //
- 
+
 import Foundation
- 
+
 struct PlantReminder: Identifiable {
-    let id = UUID()
+    let id = UUID()              // unique, never changes
     var name: String
     var room: Room
     var light: Light
     var wateringDays: WateringDays
     var water: WaterAmount
-    var isWatered = false
+    var isWatered = false        // new plants start not watered
 }
- 
-// MARK: - Choices for each picker
- 
+
+// MARK: - Picker choices
+// rawValue = display text, allCases = fills the picker
+
 enum Room: String, CaseIterable, Identifiable {
     case bedroom = "Bedroom"
     case livingRoom = "Living Room"
     case kitchen = "Kitchen"
     case balcony = "Balcony"
     case bathroom = "Bathroom"
- 
-    var id: Self { self }
+
+    var id: Self { self }        // each case is already unique
 }
- 
+
 enum Light: String, CaseIterable, Identifiable {
     case fullSun = "Full sun"
     case partialSun = "Partial sun"
     case lowLight = "Low light"
- 
+
     var id: Self { self }
- 
-    // Each light level gets its own SF Symbol
+
+    // SF Symbol for each light level
     var icon: String {
         switch self {
         case .fullSun:    "sun.max"
@@ -46,7 +46,7 @@ enum Light: String, CaseIterable, Identifiable {
         }
     }
 }
- 
+
 enum WateringDays: String, CaseIterable, Identifiable {
     case everyDay = "Every day"
     case every2Days = "Every 2 days"
@@ -57,7 +57,7 @@ enum WateringDays: String, CaseIterable, Identifiable {
 
     var id: Self { self }
 
-    // How many days between waterings — used to schedule the notification
+    // Days between waterings (used by notifications)
     var days: Int {
         switch self {
         case .everyDay:    1
@@ -69,12 +69,12 @@ enum WateringDays: String, CaseIterable, Identifiable {
         }
     }
 }
- 
+
 enum WaterAmount: String, CaseIterable, Identifiable {
     case ml20to50 = "20-50 ml"
     case ml50to100 = "50-100 ml"
     case ml100to200 = "100-200 ml"
     case ml200to300 = "200-300 ml"
- 
+
     var id: Self { self }
 }
